@@ -13,32 +13,42 @@ export default (props) => {
     <View style={styles.outerContainer}>
       <Pressable
         style={getStyles}
-        android_ripple={{ color: COLORS.PRIMARY_300 }}
+        android_ripple={{ color: COLORS.ACCENT_600 }}
         onPress={props.onPress}
       >
-        <Text style={[styles.text, props.style && props.style]}>{props.children}</Text>
+        {props.children}
       </Pressable>
     </View>
   );
-};
+};;
+
+const buttonDim = 75;
 
 const styles = StyleSheet.create({
   outerContainer: {
     overflow: "hidden",
     borderRadius: 50,
+    borderColor: COLORS.SHADE_900,
+    borderWidth: 1,
+    width: buttonDim,
+    height: buttonDim,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   innerContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: COLORS.PRIMARY_400
+    backgroundColor: COLORS.ACCENT_500,
+    padding: 20,
+    width: buttonDim,
+    height: buttonDim,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
-    fontSize: 16,
-    color: COLORS.SHADE_100,
+    fontSize: 48,
+    color: COLORS.SHADE_900,
     textAlign: 'center',
-    fontWeight: 600
   },
   pressed: {
-    backgroundColor: COLORS.PRIMARY_300
+    backgroundColor: COLORS.ACCENT_600
   }
 });

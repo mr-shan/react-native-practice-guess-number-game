@@ -1,7 +1,15 @@
-import { View, TextInput, Text, StyleSheet, Alert, Platform } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  Alert,
+  Platform,
+} from "react-native";
 
 import PrimaryButton from "../components/PrimaryButton";
-import { useState } from "react";
+import COLORS from "../helpers/colors";
 
 export default (props) => {
   const [enteredNum, setEnteredNumber] = useState("");
@@ -22,7 +30,7 @@ export default (props) => {
       return;
     }
 
-    props.onNumberSelection(parsedNum)
+    props.onNumberSelection(parsedNum);
   };
 
   const resetButtonHandler = () => {
@@ -32,7 +40,8 @@ export default (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
-        <Text style={styles.header}>Please enter a number!</Text>
+        <Text style={styles.header}>Guess My Number ! </Text>
+        <Text style={{ color: COLORS.SHADE_100, fontSize: 18 }}>Enter a number.</Text>
         <TextInput
           maxLength={2}
           style={styles.input}
@@ -58,10 +67,10 @@ export default (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 5 : 30,
+    paddingTop: Platform.OS === "ios" ? 5 : 30,
   },
   inputWrapper: {
-    backgroundColor: "#6b001e",
+    backgroundColor: COLORS.PRIMARY_500,
     padding: 30,
     paddingBottom: 20,
     margin: 10,
@@ -75,23 +84,24 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: "center",
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     color: "white",
-    marginBottom: 16,
+    marginBottom: 12,
   },
   input: {
-    width: 60,
+    width: 80,
     borderBottomWidth: 1,
     borderColor: "white",
-    color: "#ff8000",
-    fontSize: 42,
+    color: COLORS.ACCENT_500,
+    fontSize: 48,
     textAlign: "center",
     padding: 5,
-    marginBottom: 30,
-    fontWeight: 'bold'
+    fontWeight: "bold",
+    marginVertical: 35
   },
   buttons: {
+    marginVertical: 2,
     flexDirection: "row",
     gap: 10,
   },
