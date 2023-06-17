@@ -34,14 +34,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // justifyContent: 'center',
-    paddingTop: Platform.OS === "ios" ? 40 : 60,
+    paddingTop: Platform.OS === "ios" ? 20 : 40,
+    justifyContent: 'space-evenly'
   },
   header: {
     textAlign: "center",
     fontSize: 48,
     fontWeight: "bold",
     color: "white",
-    marginBottom: 50,
+    // marginBottom: 50,
   },
   imgContainer: {
     borderRadius: 150,
@@ -50,14 +51,13 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: 3,
     alignSelf: "center",
-    marginBottom: 50,
+    // marginBottom: 50,
   },
   img: {
     width: "100%",
     height: "100%",
   },
   summary: {
-    marginBottom: 50,
     marginTop: 20,
     textAlign: "center",
     color: "black",
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     lineHeight: 30,
     fontWeight: 500,
+    // marginBottom: 50,
   },
   highlight: {
     color: COLORS.PRIMARY_300,

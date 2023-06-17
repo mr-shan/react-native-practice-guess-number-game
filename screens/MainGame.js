@@ -19,7 +19,7 @@ export default ({ selectedNumber, onGameOver }) => {
     if (!validateGuess(direction)) return;
 
     if (direction === "LOW") maxBoundary = currentGuess;
-    else minBoundary = currentGuess;
+    else minBoundary = currentGuess + 1;
 
     const newGuess = generateRandomBetween(
       minBoundary,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     justifyContent: "center",
     alignItems: "center",
-    height: "55%",
+    height: "58%",
     marginBottom: 20,
   },
 

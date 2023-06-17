@@ -41,7 +41,7 @@ export default (props) => {
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
         <Text style={styles.header}>Guess My Number ! </Text>
-        <Text style={{ color: COLORS.SHADE_100, fontSize: 18 }}>Enter a number.</Text>
+        <Text style={{ color: COLORS.SHADE_100, fontSize: 20 }}>Enter a number.</Text>
         <TextInput
           maxLength={2}
           style={styles.input}
@@ -84,17 +84,17 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: "bold",
-    color: "white",
+    color: COLORS.ACCENT_600,
     marginBottom: 12,
   },
   input: {
-    width: 80,
+    width: 100,
     borderBottomWidth: 1,
     borderColor: "white",
     color: COLORS.ACCENT_500,
-    fontSize: 48,
+    fontSize: 64,
     textAlign: "center",
     padding: 5,
     fontWeight: "bold",

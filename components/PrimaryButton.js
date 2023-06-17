@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
   outerContainer: {
     overflow: "hidden",
     borderRadius: 50,
+    borderWidth: 1,
+    borderColor: COLORS.SHADE_100
   },
   innerContainer: {
     paddingHorizontal: 20,
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.PRIMARY_400
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     color: COLORS.SHADE_100,
     textAlign: 'center',
     fontWeight: 600
