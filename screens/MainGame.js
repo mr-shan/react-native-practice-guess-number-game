@@ -52,6 +52,8 @@ export default ({ selectedNumber, onGameOver }) => {
   };
 
   useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
     const initialGuess = generateRandomBetween(1, 100, selectedNumber);
     setCurrentGuess(initialGuess);
   }, []);
