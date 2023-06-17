@@ -13,9 +13,11 @@ import COLORS from "./helpers/colors";
 export default function App() {
   const [selectedNum, setSelectedNum] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [guessRequired, setGuessRequired] = useState(0)
 
   const onGameOverHandler = (result) => {
     setIsGameOver(true);
+    setGuessRequired(result);
   };
 
   const restartGameHandler = () => {
@@ -33,7 +35,11 @@ export default function App() {
 
   if (isGameOver) {
     currentScreen = (
-      <GameOver selectedNumber={selectedNum} onRestart={restartGameHandler} />
+      <GameOver 
+        selectedNumber={selectedNum} 
+        onRestart={restartGameHandler} 
+        guessRequired={guessRequired}
+      />
     );
   }
 

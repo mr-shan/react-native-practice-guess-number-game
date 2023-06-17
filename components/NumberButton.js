@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet, Platform } from "react-native";
+import { View, Pressable, StyleSheet, Platform } from "react-native";
 
 import COLORS from "../helpers/colors";
 
@@ -22,31 +22,26 @@ export default (props) => {
   );
 };;
 
-const buttonDim = 75;
+const buttonDim = 60;
 
 const styles = StyleSheet.create({
   outerContainer: {
     overflow: "hidden",
     borderRadius: 50,
-    borderColor: COLORS.SHADE_900,
-    borderWidth: 1,
+    borderColor: COLORS.SHADE_100,
+    borderWidth: 2,
     width: buttonDim,
     height: buttonDim,
     alignItems: 'center',
     justifyContent: 'center',
   },
   innerContainer: {
-    backgroundColor: COLORS.ACCENT_500,
-    padding: 20,
+    backgroundColor: COLORS.PRIMARY_400,
     width: buttonDim,
     height: buttonDim,
     justifyContent: 'center',
-    alignItems: 'center'
-  },
-  text: {
-    fontSize: 48,
-    color: COLORS.SHADE_900,
-    textAlign: 'center',
+    alignItems: 'center',
+    paddingLeft: 4
   },
   pressed: {
     backgroundColor: COLORS.ACCENT_600

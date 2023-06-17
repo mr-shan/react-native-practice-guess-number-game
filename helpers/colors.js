@@ -1,4 +1,5 @@
 const COLORS = {
+    PRIMARY_700: '#600000',
     PRIMARY_500: '#6b001e',
     PRIMARY_400: '#93012a',
     PRIMARY_300: '#a40230',

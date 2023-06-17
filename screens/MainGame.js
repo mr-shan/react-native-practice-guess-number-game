@@ -1,39 +1,22 @@
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Alert, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import COLORS from "./../helpers/colors";
 import NumberButton from "../components/NumberButton";
-import { useEffect, useState } from "react";
+import OpponentGuessItem from "../components/OpponentGuessItem";
 
-const generateRandomBetween = (min, max, exclude) => {
-  console.log(min, max, exclude);
-
-  const rndNum = Math.floor(Math.random() * (max - min)) + min;
-
-  if (rndNum === exclude) {
-    return generateRandomBetween(min, max, exclude);
-  } else {
-    return rndNum;
-  }
-};
+import { generateRandomBetween } from "../helpers/helper";
 
 let minBoundary = 1;
 let maxBoundary = 100;
 
 export default ({ selectedNumber, onGameOver }) => {
   const [currentGuess, setCurrentGuess] = useState("");
+  const [guessMade, setGuessMade] = useState([]);
 
   const buttonClickHandler = (direction) => {
-    if (
-      (direction === "LOW" && currentGuess < selectedNumber) ||
-      (direction === "HIGH" && currentGuess > selectedNumber)
-    ) {
-      Alert.alert("Come On!!", "Don't Lie! You know that this is wrong...", [
-        { text: "Try Again!", style: "cancel" },
-      ]);
-
-      return;
-    }
+    if (!validateGuess(direction)) return;
 
     if (direction === "LOW") maxBoundary = currentGuess;
     else minBoundary = currentGuess;
@@ -42,62 +25,91 @@ export default ({ selectedNumber, onGameOver }) => {
       minBoundary,
       maxBoundary,
       currentGuess
-    );
-
-    setCurrentGuess(newGuess);
+    ); 
 
     if (newGuess === selectedNumber) {
-      onGameOver(true);
+      onGameOver(guessMade.length + 1);
+    } else {
+      setGuessData(newGuess);
     }
+  };
+
+  const validateGuess = (direction) => {
+    if (
+      (direction === "LOW" && currentGuess < selectedNumber) ||
+      (direction === "HIGH" && currentGuess > selectedNumber)
+    ) {
+      Alert.alert("Come On!!", "Don't Lie! You know that this is wrong...", [
+        { text: "Try Again!", style: "cancel" },
+      ]);
+
+      return false;
+    }
+    return true;
+  };
+
+  const setGuessData = (newGuess) => {
+    setCurrentGuess(newGuess);
+    setGuessMade((oldGuess) => [...oldGuess, newGuess]);
   };
 
   useEffect(() => {
     minBoundary = 1;
     maxBoundary = 100;
     const initialGuess = generateRandomBetween(1, 100, selectedNumber);
-    setCurrentGuess(initialGuess);
+    setGuessData(initialGuess);
   }, []);
 
   return (
-    <View style={styles.numberCard}>
-      <Text style={styles.header}>Let me guess the number...</Text>
+    <View style={styles.container}>
+      <View style={styles.numberCard}>
+        <Text style={styles.header}>Let me guess the number...</Text>
 
-      <View style={styles.guessedNumberWrapper}>
-        <Text style={styles.guessedNumberText}>{currentGuess}</Text>
+        <View style={styles.guessedNumberWrapper}>
+          <Text style={styles.guessedNumberText}>{currentGuess}</Text>
+        </View>
+
+        <View style={styles.instruction}>
+          <Text style={styles.instructionText}>Higher or Lower?</Text>
+        </View>
+
+        <View style={styles.buttons}>
+          <View style={styles.buttonWrapper}>
+            <NumberButton onPress={buttonClickHandler.bind(this, "LOW")}>
+              <Ionicons name="md-remove" size={42} color="white" />
+            </NumberButton>
+          </View>
+          <View style={styles.buttonWrapper}>
+            <NumberButton onPress={buttonClickHandler.bind(this, "HIGH")}>
+              <Ionicons name="md-add" size={42} color="white" />
+            </NumberButton>
+          </View>
+        </View>
       </View>
 
-      <View style={styles.instruction}>
-        <Text style={styles.instructionText}>Higher or Lower?</Text>
-      </View>
-
-      <View style={styles.buttons}>
-        <View style={styles.buttonWrapper}>
-          <NumberButton onPress={buttonClickHandler.bind(this, "LOW")}>
-            <Ionicons name="md-remove" size={36} />
-          </NumberButton>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <NumberButton onPress={buttonClickHandler.bind(this, "HIGH")}>
-            <Ionicons name="md-add" size={36} />
-          </NumberButton>
-        </View>
+      <View style={styles.guessMadeContainer}>
+        <FlatList
+          style={{ paddingTop: 5 }}
+          data={guessMade}
+          renderItem={(item) => (
+            <OpponentGuessItem
+              id={guessMade.length - item.index}
+              guessValue={guessMade[guessMade.length - 1 - item.index]}
+            />
+          )}
+          keyExtractor={(item) => item}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    color: COLORS.SHADE_100,
-    fontSize: 24,
-    padding: 20,
-    textAlign: "center",
-    fontWeight: "bold",
+  container: {
+    paddingTop: Platform.OS === "ios" ? 20 : 50,
+    flex: 1,
   },
-
   numberCard: {
-    margin: 8,
-    marginTop: Platform.OS === "ios" ? 20 : 50,
     alignSelf: "center",
     elevation: 5,
     shadowColor: COLORS.SHADE_900,
@@ -109,14 +121,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     justifyContent: "center",
     alignItems: "center",
+    height: "55%",
+    marginBottom: 20,
+  },
+
+  header: {
+    color: COLORS.SHADE_100,
+    fontSize: 24,
+    padding: 20,
+    textAlign: "center",
+    fontWeight: "bold",
   },
 
   guessedNumberWrapper: {
-    padding: 36,
+    padding: 32,
     borderRadius: 20,
     backgroundColor: COLORS.PRIMARY_400,
     width: 200,
-    marginVertical: 20,
+    marginVertical: 12,
     elevation: 5,
     shadowColor: COLORS.SHADE_900,
     shadowOpacity: 0.25,
@@ -132,7 +154,7 @@ const styles = StyleSheet.create({
   },
 
   instruction: {
-    marginTop: 40,
+    marginTop: 24,
   },
 
   instructionText: {
@@ -151,6 +173,11 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flex: 1,
     alignItems: "center",
-    marginVertical: 20,
+    marginVertical: 16,
+  },
+
+  guessMadeContainer: {
+    paddingHorizontal: 10,
+    height: "40%",
   },
 });

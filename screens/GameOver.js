@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import COLORS from "../helpers/colors";
 import PrimaryButton from "../components/PrimaryButton";
 
-export default ({ selectedNumber, onRestart }) => {
+export default ({ selectedNumber, onRestart, guessRequired }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Game Over!</Text>
@@ -16,7 +16,7 @@ export default ({ selectedNumber, onRestart }) => {
       </View>
 
       <Text style={styles.summary}>
-        We guessed it right! It took <Text style={styles.highlight}>N</Text>{" "}
+        We guessed it right! It took <Text style={styles.highlight}>{guessRequired}</Text>{" "}
         attempts to guess the number{" "}
         <Text style={styles.highlight}>{selectedNumber}</Text>
       </Text>
