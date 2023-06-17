@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, FlatList } from "react-native";
+import { View, Text, StyleSheet, Alert, FlatList, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import COLORS from "./../helpers/colors";
@@ -10,6 +10,8 @@ import { generateRandomBetween } from "../helpers/helper";
 
 let minBoundary = 1;
 let maxBoundary = 100;
+
+const deviceDims = Dimensions.get('window');
 
 export default ({ selectedNumber, onGameOver }) => {
   const [currentGuess, setCurrentGuess] = useState("");
@@ -117,8 +119,8 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     borderRadius: 20,
     backgroundColor: COLORS.PRIMARY_500,
-    paddingVertical: 20,
-    paddingHorizontal: 14,
+    paddingVertical: deviceDims.width > 380 ? 20 : 18,
+    paddingHorizontal: deviceDims.width > 380 ? 14 : 8,
     justifyContent: "center",
     alignItems: "center",
     height: "58%",
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
   },
 
   guessedNumberWrapper: {
-    padding: 32,
+    padding: deviceDims.width > 380 ? 32 : 24,
     borderRadius: 20,
     backgroundColor: COLORS.PRIMARY_400,
     width: 200,
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
 
   guessedNumberText: {
     color: COLORS.ACCENT_500,
-    fontSize: 64,
+    fontSize: deviceDims.width > 380 ? 64 : 48,
     fontWeight: "bold",
     textAlign: "center",
     alignSelf: "center",
