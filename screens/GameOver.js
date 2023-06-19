@@ -11,18 +11,21 @@ export default ({ selectedNumber, onRestart, guessRequired }) => {
   const desiredDim = Math.min(width, height);
 
   const headerStyle = desiredDim > 380 ? { fontSize: 48 } : { fontSize: 36 }
-  console.log(desiredDim)
-  const imageSize = desiredDim > 380 ? 300 : 250;
+
+  let imageSize = desiredDim > 380 ? 300 : 250;
+  
+  if (height < width) imageSize = 150;
+
   const imageContainerStyle = {
     borderRadius: imageSize / 2,
     width: imageSize,
     height: imageSize,
-    borderWidth: deviceDims.width > 380 ? 3 : 2,
+    borderWidth: deviceDims > 380 ? 3 : 2,
   }
   const startOverButtonStyle = {
-    fontSize: desiredDim.width > 380 ? 24 : 20,
-    paddingVertical: desiredDim.width > 380 ? 8 : 6,
-    paddingHorizontal: desiredDim.width > 380 ? 18 : 14,
+    fontSize: desiredDim > 380 ? 24 : 20,
+    paddingVertical: desiredDim > 380 ? 8 : 6,
+    paddingHorizontal: desiredDim > 380 ? 18 : 14,
   }
 
   return (

@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, FlatList, Dimensions, useWindowDimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  FlatList,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import COLORS from "./../helpers/colors";
@@ -11,7 +19,7 @@ import { generateRandomBetween } from "../helpers/helper";
 let minBoundary = 1;
 let maxBoundary = 100;
 
-const deviceDims = Dimensions.get('window');
+const deviceDims = Dimensions.get("window");
 
 export default ({ selectedNumber, onGameOver }) => {
   const { width, height } = useWindowDimensions();
@@ -28,7 +36,7 @@ export default ({ selectedNumber, onGameOver }) => {
       minBoundary,
       maxBoundary,
       currentGuess
-    ); 
+    );
 
     if (newGuess === selectedNumber) {
       onGameOver(guessMade.length + 1);
@@ -64,16 +72,16 @@ export default ({ selectedNumber, onGameOver }) => {
   }, []);
 
   const isLandscape = width > height;
-  const containerStyle = { flexDirection: 'column' }
-  const cardHeight = { height: '58%' };
-  const guessListHeight = { height: '40%' };
+  const containerStyle = { flexDirection: "column" };
+  const cardHeight = { height: "58%" };
+  const guessListHeight = { height: "40%" };
   if (isLandscape) {
-    containerStyle.flexDirection = 'row';
+    containerStyle.flexDirection = "row";
     containerStyle.gap = 20;
     cardHeight.marginBottom = 0;
-    cardHeight.height = '100%';
-    guessListHeight.height = '100%';
-    guessListHeight.width = '45%'
+    cardHeight.height = "100%";
+    guessListHeight.height = "100%";
+    guessListHeight.width = "45%";
   }
 
   return (
@@ -85,9 +93,11 @@ export default ({ selectedNumber, onGameOver }) => {
           <Text style={styles.guessedNumberText}>{currentGuess}</Text>
         </View>
 
-        <View style={styles.instruction}>
-          <Text style={styles.instructionText}>Higher or Lower?</Text>
-        </View>
+        {!isLandscape && (
+          <View style={styles.instruction}>
+            <Text style={styles.instructionText}>Lower or Higher?</Text>
+          </View>
+        )}
 
         <View style={styles.buttons}>
           <View style={styles.buttonWrapper}>
