@@ -20,7 +20,7 @@ export default ({ selectedNumber, onRestart, guessRequired }) => {
     borderRadius: imageSize / 2,
     width: imageSize,
     height: imageSize,
-    borderWidth: deviceDims > 380 ? 3 : 2,
+    borderWidth: desiredDim > 380 ? 3 : 2,
   }
   const startOverButtonStyle = {
     fontSize: desiredDim > 380 ? 24 : 20,

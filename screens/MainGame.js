@@ -73,15 +73,18 @@ export default ({ selectedNumber, onGameOver }) => {
 
   const isLandscape = width > height;
   const containerStyle = { flexDirection: "column" };
-  const cardHeight = { height: "58%" };
-  const guessListHeight = { height: "40%" };
+  const cardHeight = { };
+  const guessListHeight = { };
   if (isLandscape) {
     containerStyle.flexDirection = "row";
-    containerStyle.gap = 20;
-    cardHeight.marginBottom = 0;
-    cardHeight.height = "100%";
-    guessListHeight.height = "100%";
-    guessListHeight.width = "45%";
+    containerStyle.justifyContent = 'space-around';
+    containerStyle.gap = 10;
+    guessListHeight.width = "46%";
+    cardHeight.width = "46%";
+  } else {
+    cardHeight.marginBottom = 20;
+    cardHeight.height = "58%";
+    guessListHeight.height = "40%";
   }
 
   return (
@@ -147,8 +150,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: deviceDims.width > 380 ? 14 : 8,
     justifyContent: "center",
     alignItems: "center",
-    height: "58%",
-    marginBottom: 20,
   },
 
   header: {
@@ -204,6 +205,5 @@ const styles = StyleSheet.create({
 
   guessMadeContainer: {
     paddingHorizontal: 10,
-    height: "40%",
   },
 });
