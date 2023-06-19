@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, FlatList, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Alert, FlatList, Dimensions, useWindowDimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import COLORS from "./../helpers/colors";
@@ -14,6 +14,7 @@ let maxBoundary = 100;
 const deviceDims = Dimensions.get('window');
 
 export default ({ selectedNumber, onGameOver }) => {
+  const { width, height } = useWindowDimensions();
   const [currentGuess, setCurrentGuess] = useState("");
   const [guessMade, setGuessMade] = useState([]);
 
@@ -62,9 +63,22 @@ export default ({ selectedNumber, onGameOver }) => {
     setGuessData(initialGuess);
   }, []);
 
+  const isLandscape = width > height;
+  const containerStyle = { flexDirection: 'column' }
+  const cardHeight = { height: '58%' };
+  const guessListHeight = { height: '40%' };
+  if (isLandscape) {
+    containerStyle.flexDirection = 'row';
+    containerStyle.gap = 20;
+    cardHeight.marginBottom = 0;
+    cardHeight.height = '100%';
+    guessListHeight.height = '100%';
+    guessListHeight.width = '45%'
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.numberCard}>
+    <View style={[styles.container, containerStyle]}>
+      <View style={[styles.numberCard, cardHeight]}>
         <Text style={styles.header}>Let me guess the number...</Text>
 
         <View style={styles.guessedNumberWrapper}>
@@ -89,7 +103,7 @@ export default ({ selectedNumber, onGameOver }) => {
         </View>
       </View>
 
-      <View style={styles.guessMadeContainer}>
+      <View style={[styles.guessMadeContainer, guessListHeight]}>
         <FlatList
           style={{ paddingTop: 5 }}
           data={guessMade}

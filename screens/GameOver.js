@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions, useWindowDimensions } from "react-native";
 
 import COLORS from "../helpers/colors";
 import PrimaryButton from "../components/PrimaryButton";
@@ -6,11 +6,30 @@ import PrimaryButton from "../components/PrimaryButton";
 const deviceDims = Dimensions.get('window');
 
 export default ({ selectedNumber, onRestart, guessRequired }) => {
+  const { width, height } = useWindowDimensions();
+
+  const desiredDim = Math.min(width, height);
+
+  const headerStyle = desiredDim > 380 ? { fontSize: 48 } : { fontSize: 36 }
+  console.log(desiredDim)
+  const imageSize = desiredDim > 380 ? 300 : 250;
+  const imageContainerStyle = {
+    borderRadius: imageSize / 2,
+    width: imageSize,
+    height: imageSize,
+    borderWidth: deviceDims.width > 380 ? 3 : 2,
+  }
+  const startOverButtonStyle = {
+    fontSize: desiredDim.width > 380 ? 24 : 20,
+    paddingVertical: desiredDim.width > 380 ? 8 : 6,
+    paddingHorizontal: desiredDim.width > 380 ? 18 : 14,
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Game Over!</Text>
+      <Text style={[styles.header, headerStyle]}>Game Over!</Text>
 
-      <View style={styles.imgContainer}>
+      <View style={[styles.imgContainer, imageContainerStyle]}>
         <Image
           style={styles.img}
           source={require("./../assets/images/success.png")}
@@ -24,15 +43,13 @@ export default ({ selectedNumber, onRestart, guessRequired }) => {
       </Text>
 
       <View style={styles.buttons}>
-        <PrimaryButton onPress={onRestart} style={styles.startOverButton}>
+        <PrimaryButton onPress={onRestart} style={[styles.startOverButton, startOverButtonStyle]}>
           Start Again!
         </PrimaryButton>
       </View>
     </View>
   );
 };
-
-const imageSize = deviceDims.width > 380 ? 300 : 250;
 
 const styles = StyleSheet.create({
   container: {
@@ -42,16 +59,11 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: "center",
-    fontSize: deviceDims.width > 380 ? 48 : 36,
     fontWeight: "bold",
     color: "white",
   },
   imgContainer: {
-    borderRadius: imageSize / 2,
-    width: imageSize,
-    height: imageSize,
     overflow: "hidden",
-    borderWidth: deviceDims.width > 380 ? 3 : 2,
     alignSelf: "center",
   },
   img: {

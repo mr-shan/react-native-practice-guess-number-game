@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Alert,
   Platform,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 
 import PrimaryButton from "../components/PrimaryButton";
@@ -38,33 +40,40 @@ export default (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputWrapper}>
-        <Text style={styles.header}>Guess My Number ! </Text>
-        <Text style={{ color: COLORS.SHADE_100, fontSize: 20 }}>Enter a number.</Text>
-        <TextInput
-          maxLength={2}
-          style={styles.input}
-          keyboardType="number-pad"
-          value={enteredNum}
-          onChangeText={numberChangeHandler}
-        />
-        <View style={styles.buttons}>
-          <View style={{ flex: 1 }}>
-            <PrimaryButton onPress={resetButtonHandler}>Reset</PrimaryButton>
-          </View>
-          <View style={{ flex: 1 }}>
-            <PrimaryButton onPress={confirmButtonHandler}>
-              Confirm
-            </PrimaryButton>
+    <ScrollView style={styles.fullSpace}>
+      <KeyboardAvoidingView style={styles.container} behavior="position">
+        <View style={styles.inputWrapper}>
+          <Text style={styles.header}>Guess My Number ! </Text>
+          <Text style={{ color: COLORS.SHADE_100, fontSize: 20 }}>
+            Enter a number.
+          </Text>
+          <TextInput
+            maxLength={2}
+            style={styles.input}
+            keyboardType="number-pad"
+            value={enteredNum}
+            onChangeText={numberChangeHandler}
+          />
+          <View style={styles.buttons}>
+            <View style={{ flex: 1 }}>
+              <PrimaryButton onPress={resetButtonHandler}>Reset</PrimaryButton>
+            </View>
+            <View style={{ flex: 1 }}>
+              <PrimaryButton onPress={confirmButtonHandler}>
+                Confirm
+              </PrimaryButton>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  fullSpace: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     paddingTop: Platform.OS === "ios" ? 5 : 30,
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 5,
     fontWeight: "bold",
-    marginVertical: 35
+    marginVertical: 35,
   },
   buttons: {
     marginVertical: 2,
