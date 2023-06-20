@@ -4,10 +4,10 @@
     "slug": "guess-number-game",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/dice.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/dice.gif",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

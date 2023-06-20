@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, ImageBackground, SafeAreaView, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import * as SplashScreen from 'expo-splash-screen';
 
 import NumberInput from "./screens/NumberInput";
 import MainGame from "./screens/MainGame";
@@ -10,7 +11,10 @@ import GameOver from "./screens/GameOver";
 
 import COLORS from "./helpers/colors";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
   const [selectedNum, setSelectedNum] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
   const [guessRequired, setGuessRequired] = useState(0)
@@ -42,6 +46,12 @@ export default function App() {
       />
     );
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hideAsync();
+    }, 2000)
+  }, [])
 
   return (
     <LinearGradient
