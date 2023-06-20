@@ -85,6 +85,7 @@ export default ({ selectedNumber, onGameOver }) => {
     cardHeight.marginBottom = 20;
     cardHeight.height = "58%";
     guessListHeight.height = "40%";
+    cardHeight.width = "90%";
   }
 
   return (
